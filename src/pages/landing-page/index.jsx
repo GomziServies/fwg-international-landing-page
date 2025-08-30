@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import StickyNavigation from '../../components/ui/StickyNavigation';
 import HeroSection from './components/HeroSection';
-import ProblemSection from './components/ProblemSection';
-import SolutionSection from './components/SolutionSection';
 import ProgramsSection from './components/ProgramsSection';
 import TestimonialsSection from './components/TestimonialsSection';
-import PricingSection from './components/PricingSection';
 import FAQSection from './components/FAQSection';
 import DemoBookingSection from './components/DemoBookingSection';
-import TrustSection from './components/TrustSection';
 import Footer from './components/Footer';
 import SocialProof from './components/SocialProof';
 import AboutFWG from './components/AboutFWG';
@@ -124,12 +120,6 @@ const LandingPage = () => {
       <SocialProof />
 
       <AboutFWG />
-      
-      {/* Problem Section */}
-      <ProblemSection />
-
-      {/* Solution Section */}
-      <SolutionSection />
 
       {/* Programs Section */}
       <ProgramsSection />
@@ -137,18 +127,11 @@ const LandingPage = () => {
       {/* Testimonials Section */}
       <TestimonialsSection />
 
-      {/* Trust Section */}
-      <TrustSection />
-
-      {/* Pricing Section */}
-      <PricingSection />
-
-      {/* FAQ Section */}
-      <FAQSection />
-
       {/* Demo Booking Section */}
       <DemoBookingSection onBookDemo={handleBookDemo} />
 
+      {/* FAQ Section */}
+      <FAQSection />
 
       {/* Footer */}
       <Footer />

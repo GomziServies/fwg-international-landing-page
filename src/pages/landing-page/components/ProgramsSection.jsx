@@ -27,7 +27,7 @@ const ProgramsSection = () => {
       beforeImage: 'https://images.pexels.com/photos/6975474/pexels-photo-6975474.jpeg?auto=compress&cs=tinysrgb&w=300',
       afterImage: 'https://images.pexels.com/photos/6456304/pexels-photo-6456304.jpeg?auto=compress&cs=tinysrgb&w=300',
       icon: 'TrendingDown',
-      color: 'from-success to-success/70',
+      color: ' from-primary to-accent',
       stats: { clients: '8,000+', avgLoss: '15-25 kg', timeline: '6-12 months' }
     },
     {
@@ -50,7 +50,7 @@ const ProgramsSection = () => {
       beforeImage: 'https://images.pexels.com/photos/6456299/pexels-photo-6456299.jpeg?auto=compress&cs=tinysrgb&w=300',
       afterImage: 'https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=300',
       icon: 'TrendingUp',
-      color: 'from-primary to-accent',
+      color: 'from-secondary to-secondary',
       stats: { clients: '5,500+', avgGain: '8-15 kg', timeline: '8-16 months' }
     },
     {
@@ -73,7 +73,7 @@ const ProgramsSection = () => {
       beforeImage: 'https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=300',
       afterImage: 'https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg?auto=compress&cs=tinysrgb&w=300',
       icon: 'Award',
-      color: 'from-secondary to-secondary/70',
+      color: 'from-success to-success ',
       stats: { clients: '1,200+', competitions: '500+', winners: '78%' }
     },
     {
@@ -96,7 +96,7 @@ const ProgramsSection = () => {
       beforeImage: 'https://images.pexels.com/photos/5473298/pexels-photo-5473298.jpeg?auto=compress&cs=tinysrgb&w=300',
       afterImage: 'https://images.pexels.com/photos/6975462/pexels-photo-6975462.jpeg?auto=compress&cs=tinysrgb&w=300',
       icon: 'Heart',
-      color: 'from-warning to-warning/70',
+      color: 'from-warning to-warning',
       stats: { clients: '4,000+', improvement: '85%', conditions: '12+' }
     },
     {
@@ -119,7 +119,7 @@ const ProgramsSection = () => {
       beforeImage: 'https://images.pexels.com/photos/6975474/pexels-photo-6975474.jpeg?auto=compress&cs=tinysrgb&w=300',
       afterImage: 'https://images.pexels.com/photos/6456304/pexels-photo-6456304.jpeg?auto=compress&cs=tinysrgb&w=300',
       icon: 'TrendingDown',
-      color: 'from-success to-success/70',
+      color: 'from-secondary to-secondary',
       stats: { clients: '8,000+', avgLoss: '15-25 kg', timeline: '6-12 months' }
     }
   ];
@@ -173,50 +173,7 @@ const ProgramsSection = () => {
                   {program?.description}
                 </p>
 
-                {/* Pricing */}
-                <div className="flex items-center justify-between mb-6 p-4 bg-gradient-to-r from-success/5 to-primary/5 rounded-xl border border-success/20">
-                  <div>
-                    <div className="text-3xl font-bold text-success">{program?.price}</div>
-                    <div className="text-sm text-text-secondary">per month</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-lg text-error line-through">{program?.originalPrice}</div>
-                    <div className="text-sm text-success font-medium">Save 70%</div>
-                  </div>
-                </div>
 
-                {/* Before/After Images */}
-                <div className="mb-6">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-sm font-medium text-text-secondary">Transformation Preview</span>
-                    <span className="text-sm text-primary font-medium">{program?.duration}</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="relative">
-                      <Image
-                        src={hoveredProgram === program?.id ? program?.afterImage : program?.beforeImage}
-                        alt={hoveredProgram === program?.id ? 'After transformation' : 'Before transformation'}
-                        className="w-full h-32 object-cover rounded-xl transition-all duration-500"
-                      />
-                      <div className="absolute bottom-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                        {hoveredProgram === program?.id ? 'After' : 'Before'}
-                      </div>
-                    </div>
-                    <div className="relative">
-                      <Image
-                        src={hoveredProgram === program?.id ? program?.beforeImage : program?.afterImage}
-                        alt={hoveredProgram === program?.id ? 'Before transformation' : 'After transformation'}
-                        className="w-full h-32 object-cover rounded-xl transition-all duration-500"
-                      />
-                      <div className="absolute bottom-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded">
-                        {hoveredProgram === program?.id ? 'Before' : 'After'}
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-xs text-center text-text-secondary mt-2">
-                    Hover to see transformation • Real client results
-                  </p>
-                </div>
 
                 {/* Features */}
                 <div className="mb-6">
@@ -258,26 +215,6 @@ const ProgramsSection = () => {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-16">
-          <div className="max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-text-primary mb-4">
-              Not sure which program is right for you?
-            </h3>
-            <p className="text-text-secondary mb-6">
-              Book a free consultation and let our experts recommend the perfect program based on your goals, lifestyle, and current location.
-            </p>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-primary text-primary hover:bg-primary hover:text-white"
-            >
-              Get Personalized Recommendation
-              <Icon name="MessageCircle" size={20} className="ml-2" />
-            </Button>
-          </div>
         </div>
       </div>
     </section>
