@@ -109,7 +109,7 @@ const StickyNavigation = () => {
       }`}>
         {/* Scroll Progress Bar */}
         <div 
-          className="absolute top-0 left-0 h-0.5 bg-secondary transition-all duration-300"
+          className="absolute top-0 left-0 h-1 bg-accent transition-all duration-300"
           style={{ width: `${scrollProgress}%` }}
         />
         

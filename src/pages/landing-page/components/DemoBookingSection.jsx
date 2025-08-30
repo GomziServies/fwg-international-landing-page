@@ -3,6 +3,7 @@ import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
 import Select from '../../../components/ui/Select';
+import toast from 'react-hot-toast';
 
 const DemoBookingSection = ({ onBookDemo }) => {
   const [formStep, setFormStep] = useState(1);
@@ -76,30 +77,30 @@ const DemoBookingSection = ({ onBookDemo }) => {
   const generateAvailableSlots = () => {
     const slots = [];
     const today = new Date();
-    
+
     for (let i = 1; i <= 7; i++) {
       const date = new Date(today);
       date?.setDate(today?.getDate() + i);
-      
+
       const daySlots = [
         { time: '9:00 AM', available: Math.random() > 0.3 },
         { time: '2:00 PM', available: Math.random() > 0.4 },
         { time: '6:00 PM', available: Math.random() > 0.2 },
         { time: '8:00 PM', available: Math.random() > 0.5 }
       ];
-      
+
       slots?.push({
         date: date?.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }),
         slots: daySlots
       });
     }
-    
+
     setAvailableSlots(slots);
   };
 
   const handleInputChange = (field, value) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    
+
     // Auto-progress form
     if (field === 'email' && value?.includes('@') && formStep === 1) {
       setTimeout(() => setFormStep(2), 500);
@@ -108,12 +109,56 @@ const DemoBookingSection = ({ onBookDemo }) => {
 
   const handleSubmit = (e) => {
     e?.preventDefault();
+
+    if (formStep === 1) {
+      if (!formData.email) {
+        toast.error('Please enter your email address');
+        return;
+      }
+      if (!formData.email.includes('@')) {
+        toast.error('Please enter a valid email address');
+        return;
+      }
+    }
+
+    if (formStep === 2) {
+      if (!formData.name) {
+        toast.error('Please enter your full name');
+        return;
+      }
+      if (!formData.phone) {
+        toast.error('Please enter your WhatsApp number');
+        return;
+      }
+      if (!formData.country) {
+        toast.error('Please select your country');
+        return;
+      }
+    }
+
+    if (formStep === 3) {
+      if (!formData.goal) {
+        toast.error('Please select your primary goal');
+        return;
+      }
+      if (!formData.experience) {
+        toast.error('Please select your fitness experience');
+        return;
+      }
+      if (!formData.availability) {
+        toast.error('Please select your preferred time');
+        return;
+      }
+    }
+
     if (formStep < 4) {
       setFormStep(formStep + 1);
+      toast.success('Great! Let\'s continue to the next step');
     } else {
       // Final submission
       console.log('Form submitted:', formData);
       onBookDemo && onBookDemo(formData);
+      toast.success('Thank you! Your demo session has been booked');
     }
   };
 
@@ -136,7 +181,7 @@ const DemoBookingSection = ({ onBookDemo }) => {
               placeholder="your.email@example.com"
               value={formData?.email}
               onChange={(e) => handleInputChange('email', e?.target?.value)}
-              required
+              
               className="text-lg"
             />
             <div className="bg-primary/5 rounded-xl p-4 border border-primary/20">
@@ -165,7 +210,7 @@ const DemoBookingSection = ({ onBookDemo }) => {
               placeholder="Enter your full name"
               value={formData?.name}
               onChange={(e) => handleInputChange('name', e?.target?.value)}
-              required
+
             />
             <Input
               type="tel"
@@ -174,7 +219,7 @@ const DemoBookingSection = ({ onBookDemo }) => {
               description="We'll send you a confirmation via WhatsApp"
               value={formData?.phone}
               onChange={(e) => handleInputChange('phone', e?.target?.value)}
-              required
+
             />
             <Select
               label="Current Country"
@@ -182,7 +227,7 @@ const DemoBookingSection = ({ onBookDemo }) => {
               options={countries}
               value={formData?.country}
               onChange={(value) => handleInputChange('country', value)}
-              required
+
             />
           </div>
         );
@@ -204,7 +249,7 @@ const DemoBookingSection = ({ onBookDemo }) => {
               options={goals}
               value={formData?.goal}
               onChange={(value) => handleInputChange('goal', value)}
-              required
+              
             />
             <Select
               label="Fitness Experience"
@@ -212,7 +257,7 @@ const DemoBookingSection = ({ onBookDemo }) => {
               options={experiences}
               value={formData?.experience}
               onChange={(value) => handleInputChange('experience', value)}
-              required
+              
             />
             <Select
               label="Preferred Time"
@@ -220,7 +265,7 @@ const DemoBookingSection = ({ onBookDemo }) => {
               options={timeSlots}
               value={formData?.availability}
               onChange={(value) => handleInputChange('availability', value)}
-              required
+              
             />
           </div>
         );
@@ -245,10 +290,9 @@ const DemoBookingSection = ({ onBookDemo }) => {
                       <button
                         key={slotIndex}
                         disabled={!slot?.available}
-                        className={`p-3 rounded-lg text-sm font-medium transition-all duration-200 ${
-                          slot?.available
-                            ? 'bg-success/10 text-success border border-success/30 hover:bg-success/20' :'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
-                        }`}
+                        className={`p-3 rounded-lg text-sm font-medium transition-all duration-200 ${slot?.available
+                          ? 'bg-success/10 text-success border border-success/30 hover:bg-success/20' : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'
+                          }`}
                       >
                         {slot?.time}
                         {!slot?.available && <span className="block text-xs">Booked</span>}
@@ -298,7 +342,7 @@ const DemoBookingSection = ({ onBookDemo }) => {
                 <h3 className="text-xl font-bold text-text-primary mb-4">
                   What You'll Get in Your Free Demo:
                 </h3>
-                
+
                 <div className="space-y-4">
                   {[
                     {
@@ -370,16 +414,14 @@ const DemoBookingSection = ({ onBookDemo }) => {
               <div className="flex items-center justify-between mb-8">
                 {[1, 2, 3, 4]?.map((step) => (
                   <div key={step} className="flex items-center">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                      step <= formStep
-                        ? 'bg-primary text-white' :'bg-gray-200 text-gray-500'
-                    }`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${step <= formStep
+                      ? 'bg-primary text-white' : 'bg-gray-200 text-gray-500'
+                      }`}>
                       {step < formStep ? <Icon name="Check" size={16} /> : step}
                     </div>
                     {step < 4 && (
-                      <div className={`w-8 h-1 mx-2 ${
-                        step < formStep ? 'bg-primary' : 'bg-gray-200'
-                      }`} />
+                      <div className={`w-8 h-1 mx-2 ${step < formStep ? 'bg-primary' : 'bg-gray-200'
+                        }`} />
                     )}
                   </div>
                 ))}
@@ -387,7 +429,7 @@ const DemoBookingSection = ({ onBookDemo }) => {
 
               <form onSubmit={handleSubmit}>
                 {renderFormStep()}
-                
+
                 <div className="mt-8 space-y-4">
                   <Button
                     type="submit"
@@ -399,7 +441,7 @@ const DemoBookingSection = ({ onBookDemo }) => {
                     {formStep === 4 ? 'Confirm Demo Booking' : 'Continue'}
                     <Icon name="ArrowRight" size={20} className="ml-2" />
                   </Button>
-                  
+
                   {formStep > 1 && (
                     <Button
                       type="button"

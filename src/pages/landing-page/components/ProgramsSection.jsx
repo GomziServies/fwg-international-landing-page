@@ -203,7 +203,7 @@ const ProgramsSection = () => {
                 </div>
 
                 {/* CTA Button */}
-                <Button
+                {/* <Button
                   variant="default"
                   size="lg"
                   fullWidth
@@ -211,7 +211,7 @@ const ProgramsSection = () => {
                 >
                   See Detailed Results
                   <Icon name="ArrowRight" size={20} className="ml-2" />
-                </Button>
+                </Button> */}
               </div>
             </div>
           ))}
