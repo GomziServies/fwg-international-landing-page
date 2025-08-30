@@ -178,22 +178,11 @@ const HeroSection = () => {
                 iconPosition="left"
                 className="text-lg px-8 py-4"
               >
-                Book Free Consultation 
+                Book Free Consultation
               </Button>
             </div>
           </div>
         </div>
-      </div>
-      {/* WhatsApp Floating Button */}
-      <div className="fixed bottom-6 right-6 z-50">
-        <Button
-          variant="success"
-          size="icon"
-          onClick={() => window.open('https://wa.me/919876543210', '_blank')}
-          iconName="MessageCircle"
-          iconSize={24}
-          className="w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 animate-pulse"
-        />
       </div>
     </section>
   );
