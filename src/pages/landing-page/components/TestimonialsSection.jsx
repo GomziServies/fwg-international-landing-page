@@ -64,37 +64,12 @@ const TestimonialsSection = () => {
     }
   ];
 
-  const whatsappMessages = [
-    { name: 'Rohit K.', location: 'Singapore', message: 'Down 15kg in 5 months! Thank you team! 🙏', time: '2 min ago' },
-    { name: 'Kavya M.', location: 'Melbourne', message: 'Finally fit into my wedding lehenga! ❤️', time: '5 min ago' },
-    { name: 'Arjun P.', location: 'Vancouver', message: 'Best decision ever! Saved $2000+ 💰', time: '8 min ago' },
-    { name: 'Sneha R.', location: 'Frankfurt', message: 'PCOS symptoms completely gone! 🎉', time: '12 min ago' }
-  ];
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials?.length);
     }, 8000);
 
     return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    const notificationInterval = setInterval(() => {
-      const randomMessage = whatsappMessages?.[Math.floor(Math.random() * whatsappMessages?.length)];
-      const newNotification = {
-        id: Date.now(),
-        ...randomMessage
-      };
-      
-      setFloatingNotifications(prev => [...prev?.slice(-2), newNotification]);
-      
-      setTimeout(() => {
-        setFloatingNotifications(prev => prev?.filter(n => n?.id !== newNotification?.id));
-      }, 5000);
-    }, 3000);
-
-    return () => clearInterval(notificationInterval);
   }, []);
 
   const nextTestimonial = () => {
