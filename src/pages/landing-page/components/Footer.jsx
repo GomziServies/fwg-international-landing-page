@@ -53,17 +53,15 @@ const Footer = () => {
           {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
-              <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
+              {/* <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
                 <Icon name="Dumbbell" size={28} color="white" strokeWidth={2.5} />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-2xl font-bold">FWG International</span>
-                <span className="text-sm opacity-75">Fitness Without Borders</span>
-              </div>
+              </div> */}
+              <img src="/assets/images/gomzi.webp" alt="FWG International Logo" className="h-16 w-auto" />
+              
             </div>
-            
+
             <p className="text-gray-300 mb-6 leading-relaxed">
-              Empowering Indians living abroad to achieve their fitness goals with culturally-appropriate coaching, 
+              Empowering Indians living abroad to achieve their fitness goals with culturally-appropriate coaching,
               personalized nutrition plans, and world-class support at Indian prices.
             </p>
 
@@ -186,7 +184,7 @@ const Footer = () => {
             <div className="text-gray-400 text-sm mb-4 md:mb-0">
               © {currentYear} FWG International. All rights reserved.
             </div>
-            
+
             <div className="flex items-center space-x-6 text-sm text-gray-400">
               <div className="flex items-center space-x-2">
                 <Icon name="Shield" size={16} color="#38A169" />

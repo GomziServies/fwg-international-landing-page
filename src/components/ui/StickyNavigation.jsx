@@ -121,13 +121,14 @@ const StickyNavigation = () => {
               onClick={() => scrollToSection('#hero')}
             >
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
+                {/* <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
                   <Icon name="Dumbbell" size={24} color="white" strokeWidth={2.5} />
-                </div>
-                <div className="flex flex-col">
+                </div> */}
+                <img src="/assets/images/gomzi.webp" alt="FWG International Logo" className="h-12 w-auto" />
+                {/* <div className="flex flex-col">
                   <span className="text-xl font-bold text-text-primary">FWG</span>
                   <span className="text-xs text-text-secondary font-medium">International</span>
-                </div>
+                </div> */}
               </div>
             </div>
 

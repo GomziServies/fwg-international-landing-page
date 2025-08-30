@@ -55,7 +55,7 @@ const ProgramsSection = () => {
     },
     {
       id: 'prep-coaching',
-      title: 'Competition Prep',
+      title: 'Prep Coaching program',
       subtitle: 'Elite Performance',
       description: 'Professional coaching for bodybuilding, powerlifting, and fitness competitions with precise nutrition timing.',
       price: '₹12,000',
@@ -78,7 +78,7 @@ const ProgramsSection = () => {
     },
     {
       id: 'clinical-nutrition',
-      title: 'Clinical Nutrition',
+      title: 'Clinical Illness Coaching Program',
       subtitle: 'Medical Nutrition Therapy',
       description: 'Specialized nutrition plans for PCOS, diabetes, thyroid, and other health conditions with medical supervision.',
       price: '₹10,000',
@@ -98,6 +98,29 @@ const ProgramsSection = () => {
       icon: 'Heart',
       color: 'from-warning to-warning/70',
       stats: { clients: '4,000+', improvement: '85%', conditions: '12+' }
+    },
+    {
+      id: 'corporate-wellness',
+      title: 'Corporate Wellness Programs ',
+      subtitle: 'Sustainable Fat Loss',
+      description: 'Lose weight sustainably with Indian meal plans and home workouts designed for busy professionals abroad.',
+      price: '₹8,000',
+      originalPrice: '$200',
+      duration: '6-12 months',
+      successRate: '94%',
+      features: [
+        'Customized Indian diet plans',
+        'Home & gym workout routines',
+        'Weekly progress tracking',
+        'WhatsApp nutrition support',
+        'Meal prep guidance',
+        'Festival season planning'
+      ],
+      beforeImage: 'https://images.pexels.com/photos/6975474/pexels-photo-6975474.jpeg?auto=compress&cs=tinysrgb&w=300',
+      afterImage: 'https://images.pexels.com/photos/6456304/pexels-photo-6456304.jpeg?auto=compress&cs=tinysrgb&w=300',
+      icon: 'TrendingDown',
+      color: 'from-success to-success/70',
+      stats: { clients: '8,000+', avgLoss: '15-25 kg', timeline: '6-12 months' }
     }
   ];
 
@@ -109,11 +132,11 @@ const ProgramsSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">
             Choose Your{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              Transformation Journey
+              Our Global Services
             </span>
           </h2>
           <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-            Proven programs designed specifically for Indians living abroad, with results that speak for themselves
+            Empowering you with end-to-end solutions that connect opportunities and drive success across global markets.
           </p>
         </div>
 
