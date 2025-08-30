@@ -48,14 +48,14 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="bg-gradient-to-br from-white via-gray-50 to-green-50 min-h-screen flex items-center ">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+    <section className="bg-gradient-to-br from-white via-gray-50 to-green-50 min-h-screen flex items-center justify-center pt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-12">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center justify-items-center">
           {/* Left Side - Transformation Carousel */}
-          <div className="relative">
+          <div className="relative w-full max-w-xl mx-auto">
             <div className="bg-white rounded-3xl shadow-testimonial p-8 lg:p-10">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-foreground mb-3">Real Transformations</h3>
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-foreground mb-2">Real Transformations</h3>
                 <p className="text-base text-muted-foreground">Indians abroad achieving their goals</p>
               </div>
 
@@ -66,7 +66,7 @@ const HeroSection = () => {
                     <div key={transformation?.id} className="w-full flex-shrink-0">
                       <div className="grid grid-cols-2 gap-6">
                         <div className="text-center">
-                          <div className="relative overflow-hidden rounded-lg h-72 mb-4">
+                          <div className="relative overflow-hidden rounded-lg h-56 mb-3">
                             <Image
                               src={transformation?.before}
                               alt={`${transformation?.name} before transformation`}
@@ -76,7 +76,7 @@ const HeroSection = () => {
                           <span className="text-base font-medium text-red-600">Before</span>
                         </div>
                         <div className="text-center">
-                          <div className="relative overflow-hidden rounded-lg h-72 mb-4">
+                          <div className="relative overflow-hidden rounded-lg h-56 mb-3">
                             <Image
                               src={transformation?.after}
                               alt={`${transformation?.name} after transformation`}
@@ -86,10 +86,10 @@ const HeroSection = () => {
                           <span className="text-sm font-medium text-primary">After</span>
                         </div>
                       </div>
-                      <div className="text-center mt-6">
-                        <h4 className="text-xl font-semibold text-foreground mb-2">{transformation?.name}</h4>
-                        <p className="text-base text-muted-foreground">{transformation?.location}</p>
-                        <p className="text-lg font-medium text-primary mt-2">{transformation?.result}</p>
+                      <div className="text-center mt-4">
+                        <h4 className="text-lg font-semibold text-foreground mb-1">{transformation?.name}</h4>
+                        <p className="text-sm text-muted-foreground">{transformation?.location}</p>
+                        <p className="text-base font-medium text-primary mt-1">{transformation?.result}</p>
                       </div>
                     </div>
                   ))}
@@ -111,7 +111,7 @@ const HeroSection = () => {
           </div>
 
           {/* Right Side - Hero Content */}
-          <div className="text-center lg:text-left">
+          <div className="text-center lg:text-left w-full max-w-xl mx-auto">
             <div className="mb-6">
               <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary mb-4">
                 🇮🇳 Designed for Indians Abroad
