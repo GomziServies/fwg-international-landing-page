@@ -11,6 +11,8 @@ import DemoBookingSection from './components/DemoBookingSection';
 import TrustSection from './components/TrustSection';
 import FooterCTA from './components/FooterCTA';
 import Footer from './components/Footer';
+import SocialProof from './components/SocialProof';
+import AboutFWG from './components/AboutFWG';
 
 const LandingPage = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -119,6 +121,10 @@ const LandingPage = () => {
         onBookDemo={handleBookDemo}
         onJoinWhatsApp={handleJoinWhatsApp}
       />
+
+      <SocialProof />
+
+      <AboutFWG />
       
       {/* Problem Section */}
       <ProblemSection />

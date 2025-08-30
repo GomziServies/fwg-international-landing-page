@@ -11,7 +11,6 @@ const Routes = () => {
       <ErrorBoundary>
       <ScrollToTop />
       <RouterRoutes>
-        {/* Define your route here */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/landing-page" element={<LandingPage />} />
         <Route path="*" element={<NotFound />} />
