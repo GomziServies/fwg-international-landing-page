@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Core Colors */
+    --color-background: #FAFBFC; /* gray-50 */
+    --color-foreground: #1A202C; /* gray-900 */
+    --color-border: #E2E8F0; /* gray-200 */
+    --color-input: #FFFFFF; /* white */
+    --color-ring: #EF7F1B; /* orange-500 */
+    
+    /* Card Colors */
+    --color-card: #FFFFFF; /* white */
+    --color-card-foreground: #1A202C; /* gray-900 */
+    
+    /* Popover Colors */
+    --color-popover: #FFFFFF; /* white */
+    --color-popover-foreground: #1A202C; /* gray-900 */
+    
+    /* Muted Colors */
+    --color-muted: #F7FAFC; /* gray-50 */
+    --color-muted-foreground: #4A5568; /* gray-600 */
+    
+    /* Primary Colors */
+    --color-primary: #EF7F1B; /* orange-500 */
+    --color-primary-foreground: #FFFFFF; /* white */
+    
+    /* Secondary Colors */
+    --color-secondary: #008DD2; /* blue-600 */
+    --color-secondary-foreground: #FFFFFF; /* white */
+    
+    /* Accent Colors */
+    --color-accent: #FF6B35; /* orange-600 */
+    --color-accent-foreground: #FFFFFF; /* white */
+    
+    /* Success Colors */
+    --color-success: #38A169; /* green-500 */
+    --color-success-foreground: #FFFFFF; /* white */
+    
+    /* Warning Colors */
+    --color-warning: #ED8936; /* orange-400 */
+    --color-warning-foreground: #FFFFFF; /* white */
+    
+    /* Error/Destructive Colors */
+    --color-error: #E53E3E; /* red-500 */
+    --color-error-foreground: #FFFFFF; /* white */
+    --color-destructive: #E53E3E; /* red-500 */
+    --color-destructive-foreground: #FFFFFF; /* white */
+    
+    /* Text Colors */
+    --color-text-primary: #1A202C; /* gray-900 */
+    --color-text-secondary: #4A5568; /* gray-600 */
+    
+    /* Surface Colors */
+    --color-surface: #FFFFFF; /* white */
+    
+    /* Border Radius */
+    --radius: 18px;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+  
+  .font-accent {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  
+  .shadow-cta {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .shadow-testimonial {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .transition-smooth {
+    transition: all 200ms ease-in-out;
+  }
+  
+  .transition-form {
+    transition: all 300ms ease-in-out;
+  }
+}
