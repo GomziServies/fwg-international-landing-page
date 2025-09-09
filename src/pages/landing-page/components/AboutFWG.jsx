@@ -25,9 +25,9 @@ const AboutFWG = () => {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto"
         >
-          <h2 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-            <span className="block text-text-primary">About</span>
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
+            About{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
               FWG International
             </span>
           </h2>
@@ -54,7 +54,7 @@ const AboutFWG = () => {
               icon: "Globe",
               color: "#A8C944",
               title: "Indian Pricing, Global Reach",
-              text: "Fitness coaching abroad can cost 3–5x more. FWG offers the same premium coaching at Indian pricing — saving you money while achieving life-changing results.",
+              text: "Fitness coaching abroad can cost 3-5x more. FWG offers the same premium coaching at Indian pricing — saving you money while achieving life-changing results.",
             },
           ].map((item, i) => (
             <motion.div
@@ -82,9 +82,9 @@ const AboutFWG = () => {
           viewport={{ once: true }}
           className="mt-20 max-w-3xl mx-auto text-center"
         >
-          <div className="flex items-center justify-center mb-6">
+          <div className="flex items-center justify-center mb">
             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10">
-              <Icon name="PlayCircle" size={28} color="#EF7F1B" />
+              <Icon name="Workflow" size={28} color="#EF7F1B" />
             </div>
           </div>
           <h3 className="text-2xl font-bold text-text-primary mb-4">How It Works?</h3>

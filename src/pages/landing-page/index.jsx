@@ -4,10 +4,11 @@ import HeroSection from './components/HeroSection';
 import ProgramsSection from './components/ProgramsSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import FAQSection from './components/FAQSection';
-import DemoBookingSection from './components/DemoBookingSection';
+import DemoBookingSection from './components/BookingSection';
 import Footer from './components/Footer';
 import SocialProof from './components/SocialProof';
 import AboutFWG from './components/AboutFWG';
+import WhyChooseFWG from './components/WhyChooseFWG';
 
 const LandingPage = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -123,6 +124,8 @@ const LandingPage = () => {
 
       {/* Programs Section */}
       <ProgramsSection />
+
+      <WhyChooseFWG />
 
       {/* Testimonials Section */}
       <TestimonialsSection />

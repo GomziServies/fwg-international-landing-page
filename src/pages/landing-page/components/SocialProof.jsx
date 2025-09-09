@@ -1,5 +1,6 @@
 import React from "react";
-import { CheckCircle } from "lucide-react"; // or your AppIcon component
+import { CheckCircle } from "lucide-react"; 
+import { motion } from "framer-motion";
 
 const stats = [
   { label: "Transformations Completed", value: "16,000+" },
@@ -14,7 +15,14 @@ const SocialProof = () => {
   return (
     <section className="py-20 bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/5">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-14">
+        {/* Heading */}
+        <motion.div
+          className="text-center mb-14"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-4">
             Our{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
@@ -24,13 +32,19 @@ const SocialProof = () => {
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
             See how our fitness coaching program has transformed lives worldwide.
           </p>
-        </div>
+        </motion.div>
 
+        {/* Stats Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {stats.map((stat, i) => (
-            <div
+            <motion.div
               key={i}
-              className="bg-card border border-border rounded-2xl p-6 shadow-cta hover:shadow-testimonial transition-all duration-300 flex items-start space-x-4"
+              className="bg-card border border-border rounded-2xl p-6 shadow-cta flex items-start space-x-4"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.15 }}
+              whileHover={{ scale: 1.05, boxShadow: "0px 8px 25px rgba(0,0,0,0.1)" }}
             >
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-white flex-shrink-0">
                 <CheckCircle size={20} />
@@ -41,7 +55,7 @@ const SocialProof = () => {
                 </h3>
                 <p className="text-text-secondary">{stat.label}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

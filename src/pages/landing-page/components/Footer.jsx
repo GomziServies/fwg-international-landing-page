@@ -41,21 +41,16 @@ const Footer = () => {
 
   const contactInfo = {
     email: 'support@fwginternational.com',
-    whatsapp: '+91 98765 43210',
-    address: 'Mumbai, Maharashtra, India'
+    whatsapp: '+91 88668 42520',
+    address: '323 , 3rd floor , Laxmi Enclave-1, opposite Gajera School, Katargam, Surat, Gujarat 395004'
   };
 
   return (
     <footer className="bg-text-primary text-white">
-      {/* Main Footer Content */}
       <div className="container mx-auto px-6 py-16">
         <div className="grid lg:grid-cols-5 gap-8">
-          {/* Company Info */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-3 mb-6">
-              {/* <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center">
-                <Icon name="Dumbbell" size={28} color="white" strokeWidth={2.5} />
-              </div> */}
               <img src="/assets/images/gomzi.webp" alt="FWG International Logo" className="h-16 w-auto" />
               
             </div>
@@ -64,8 +59,6 @@ const Footer = () => {
               Empowering Indians living abroad to achieve their fitness goals with culturally-appropriate coaching,
               personalized nutrition plans, and world-class support at Indian prices.
             </p>
-
-            {/* Contact Information */}
             <div className="space-y-3 mb-6">
               <div className="flex items-center space-x-3">
                 <Icon name="Mail" size={16} color="#EF7F1B" />
@@ -80,12 +73,11 @@ const Footer = () => {
                 </a>
               </div>
               <div className="flex items-center space-x-3">
-                <Icon name="MapPin" size={16} color="#EF7F1B" />
+                <Icon name="MapPin" size={22} color="#EF7F1B" />
                 <span className="text-gray-300">{contactInfo?.address}</span>
               </div>
             </div>
 
-            {/* Social Links */}
             <div className="flex space-x-4">
               {socialLinks?.map((social) => (
                 <a
@@ -100,7 +92,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Footer Links */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:col-span-3">
             <div>
               <h3 className="text-lg font-semibold mb-4 text-primary">Company</h3>
@@ -156,7 +147,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      {/* Newsletter Signup */}
       <div className="border-t border-gray-700">
         <div className="container mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between">
@@ -177,7 +167,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      {/* Bottom Bar */}
       <div className="border-t border-gray-700">
         <div className="container mx-auto px-6 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between">

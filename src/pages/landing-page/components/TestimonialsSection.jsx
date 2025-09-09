@@ -1,260 +1,232 @@
-import React, { useState, useEffect } from 'react';
-import Icon from '../../../components/AppIcon';
-import Image from '../../../components/AppImage';
+import React, { useState, useEffect } from "react";
+import Icon from "../../../components/AppIcon";
+import Image from "../../../components/AppImage";
 
 const TestimonialsSection = () => {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
-  const [floatingNotifications, setFloatingNotifications] = useState([]);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+    const [currentTestimonial, setCurrentTestimonial] = useState(0);
+    const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const testimonials = [
-    {
-      id: 1,
-      name: 'Priya Sharma',
-      location: 'Toronto, Canada',
-      program: 'Weight Loss',
-      beforeImage: 'https://images.pexels.com/photos/6975474/pexels-photo-6975474.jpeg?auto=compress&cs=tinysrgb&w=300',
-      afterImage: 'https://images.pexels.com/photos/6456304/pexels-photo-6456304.jpeg?auto=compress&cs=tinysrgb&w=300',
-      result: 'Lost 22 kg in 8 months',
-      testimonial: `Living in Toronto, I was spending $300/month on a local trainer who didn't understand my vegetarian diet. FWG's coaches created meal plans with dal, sabzi, and roti that actually worked! The Zoom sessions fit perfectly with my work schedule, and I saved over $2000 while achieving my dream body.`,
-      rating: 5,
-      videoThumbnail: 'https://images.pexels.com/photos/6456304/pexels-photo-6456304.jpeg?auto=compress&cs=tinysrgb&w=400'
-    },
-    {
-      id: 2,
-      name: 'Rajesh Patel',
-      location: 'Dubai, UAE',
-      program: 'Muscle Gain',
-      beforeImage: 'https://images.pexels.com/photos/6456299/pexels-photo-6456299.jpeg?auto=compress&cs=tinysrgb&w=300',
-      afterImage: 'https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=300',
-      result: 'Gained 12 kg lean muscle',
-      testimonial: `Dubai gym memberships cost AED 500+ monthly, and personal trainers were AED 200 per session. FWG's program cost me less than what I'd spend in 2 weeks here! The coaches understood my Gujarati food preferences and created high-protein plans with dhokla, paneer, and sprouts. Amazing results!`,
-      rating: 5,
-      videoThumbnail: 'https://images.pexels.com/photos/1552106/pexels-photo-1552106.jpeg?auto=compress&cs=tinysrgb&w=400'
-    },
-    {
-      id: 3,
-      name: 'Anita Reddy',
-      location: 'London, UK',
-      program: 'Clinical Nutrition',
-      beforeImage: 'https://images.pexels.com/photos/5473298/pexels-photo-5473298.jpeg?auto=compress&cs=tinysrgb&w=300',
-      afterImage: 'https://images.pexels.com/photos/6975462/pexels-photo-6975462.jpeg?auto=compress&cs=tinysrgb&w=300',
-      result: 'PCOS symptoms reduced by 80%',
-      testimonial: `After struggling with PCOS for years in London, local nutritionists charged £80 per session and didn't understand Indian spices' benefits. FWG's clinical nutrition program included turmeric, fenugreek, and traditional remedies. My hormones balanced, periods regularized, and I feel amazing!`,
-      rating: 5,
-      videoThumbnail: 'https://images.pexels.com/photos/6975462/pexels-photo-6975462.jpeg?auto=compress&cs=tinysrgb&w=400'
-    },
-    {
-      id: 4,
-      name: 'Vikram Singh', location: 'Sydney, Australia', program: 'Competition Prep',
-      beforeImage: 'https://images.pexels.com/photos/1552242/pexels-photo-1552242.jpeg?auto=compress&cs=tinysrgb&w=300', afterImage: 'https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg?auto=compress&cs=tinysrgb&w=300', result: '1st Place Men\'s Physique',
-      testimonial: `Preparing for competitions in Sydney would have cost me AUD 400+ weekly for coaching and meal prep. FWG's prep coaches guided me through peak week with Indian-style meal timing and posing practice via Zoom. Won my first competition and saved thousands! The cultural understanding made all the difference.`,
-      rating: 5,
-      videoThumbnail: 'https://images.pexels.com/photos/1552252/pexels-photo-1552252.jpeg?auto=compress&cs=tinysrgb&w=400'
-    },
-    {
-      id: 5,
-      name: 'Meera Joshi', location: 'New York, USA', program: 'Weight Loss',
-      beforeImage: 'https://images.pexels.com/photos/6975474/pexels-photo-6975474.jpeg?auto=compress&cs=tinysrgb&w=300', afterImage: 'https://images.pexels.com/photos/6456304/pexels-photo-6456304.jpeg?auto=compress&cs=tinysrgb&w=300', result: 'Lost 18 kg, reversed diabetes',
-      testimonial: `Manhattan personal trainers wanted $250 per session, and nutritionists charged $200 for meal plans I couldn't follow. FWG created a program with Indian breakfast options like poha and upma. My diabetes is now under control, and I've never felt better. Best investment ever!`,
-      rating: 5,
-      videoThumbnail: 'https://images.pexels.com/photos/6456304/pexels-photo-6456304.jpeg?auto=compress&cs=tinysrgb&w=400'
-    }
-  ];
+    const testimonials = [
+        {
+            id: 1,
+            name: "Sweta Patel",
+            location: "California, US state",
+            program: "Weight Loss",
+            beforeImage: "/assets/beforeAfter/07.jpg",
+            afterImage: "/assets/beforeAfter/08.jpg",
+            result: "Lost 9 kg in 3 months",
+            testimonial: `Living in Toronto, I was spending $300/month on a local trainer who didn't understand my vegetarian diet. FWG's coaches created meal plans with dal, sabzi, and roti that actually worked!`,
+            rating: 5,
+        },
+        {
+            id: 2,
+            name: "Niddhi Bhalla",
+            location: "Dubai, UAE",
+            program: "Weight Loss",
+            beforeImage: "/assets/beforeAfter/09.jpg",
+            afterImage: "/assets/beforeAfter/10.jpg",
+            result: "Loss 22 kg in 8 months",
+            testimonial: `Dubai gym memberships cost AED 500+ monthly, and personal trainers were AED 200 per session. FWG's program cost me less than what I'd spend in 2 weeks here!`,
+            rating: 5,
+        },
+        {
+            id: 3,
+            name: "Manali Patel",
+            location: "USA",
+            program: "Weight Loss",
+            beforeImage: "/assets/beforeAfter/11.jpg",
+            afterImage: "/assets/beforeAfter/12.jpg",
+            result: "Loss 22 kg in 3 months",
+            testimonial: `After struggling with PCOS for years in London, local nutritionists charged £80 per session. FWG's clinical nutrition program balanced my hormones and regularized my periods!`,
+            rating: 5,
+        },
+    ];
 
-  const handleTestimonialChange = (newIndex) => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      setCurrentTestimonial(newIndex);
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 50);
-    }, 400);
-  };
+    const handleTestimonialChange = (newIndex) => {
+        setIsTransitioning(true);
+        setTimeout(() => {
+            setCurrentTestimonial(newIndex);
+            setTimeout(() => setIsTransitioning(false), 50);
+        }, 400);
+    };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      handleTestimonialChange((currentTestimonial + 1) % testimonials.length);
-    }, 8000);
-    return () => clearInterval(interval);
-  }, [currentTestimonial]);
+    useEffect(() => {
+        const interval = setInterval(() => {
+            handleTestimonialChange(
+                (currentTestimonial + 1) % testimonials.length
+            );
+        }, 8000);
+        return () => clearInterval(interval);
+    }, [currentTestimonial]);
 
-  const nextTestimonial = () => {
-    const newIndex = (currentTestimonial + 1) % testimonials.length;
-    handleTestimonialChange(newIndex);
-  };
+    const nextTestimonial = () => {
+        handleTestimonialChange((currentTestimonial + 1) % testimonials.length);
+    };
 
-  const prevTestimonial = () => {
-    const newIndex = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
-    handleTestimonialChange(newIndex);
-  };
+    const prevTestimonial = () => {
+        handleTestimonialChange(
+            (currentTestimonial - 1 + testimonials.length) %
+                testimonials.length
+        );
+    };
 
-  const currentClient = testimonials?.[currentTestimonial];
+    const currentClient = testimonials[currentTestimonial];
 
-  return (
-    <section id="testimonials" className="py-20 bg-white relative overflow-hidden">
-      <style>{`
-        .testimonial-content {
-          transition: opacity 0.4s ease-in-out;
-        }
-        .testimonial-content.fade-out {
-          opacity: 0;
-        }
-        .testimonial-content.fade-in {
-          opacity: 1;
-        }
-      `}</style>
-      {/* Floating WhatsApp Notifications */}
-      <div className="fixed top-20 right-4 z-50 space-y-2">
-        {floatingNotifications?.map((notification) => (
-          <div
-            key={notification?.id}
-            className="bg-green-500 text-white p-3 rounded-lg shadow-lg max-w-xs animate-slide-in-right"
-          >
-            <div className="flex items-center space-x-2 mb-1">
-              <Icon name="MessageCircle" size={16} />
-              <span className="font-medium text-sm">{notification?.name}</span>
-              <span className="text-xs opacity-75">{notification?.location}</span>
-            </div>
-            <p className="text-sm">{notification?.message}</p>
-            <span className="text-xs opacity-75">{notification?.time}</span>
-          </div>
-        ))}
-      </div>
-      <div className="container mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-text-primary mb-6">
-            Hear from Our {' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-              Happy Customers
-            </span>
-          </h2>
-          <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-            See how Indians living abroad achieved their fitness goals while saving thousands on local trainers
-          </p>
-        </div>
+    return (
+        <section
+            id="testimonials"
+            className="py-20 bg-gradient-to-br from-gray-50 via-white to-gray-100 relative overflow-hidden"
+        >
+            <style>{`
+                .testimonial-content {
+                  transition: opacity 0.5s ease, transform 0.5s ease;
+                }
+                .testimonial-content.fade-out {
+                  opacity: 0;
+                  transform: translateY(20px);
+                }
+                .testimonial-content.fade-in {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+            `}</style>
 
-        {/* Main Testimonial Display */}
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-3xl shadow-testimonial p-8 border border-border">
-            <div className="grid lg:grid-cols-2 gap-8 items-center">
-              {/* Before/After Images */}
-              <div className={`relative testimonial-content ${isTransitioning ? 'fade-out' : 'fade-in'}`}>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="relative">
-                    <Image
-                      src={currentClient?.beforeImage}
-                      alt="Before transformation"
-                      className="w-full h-64 object-cover rounded-2xl"
-                    />
-                    <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-lg text-sm font-medium">
-                      Before
+            <div className="container mx-auto px-6">
+                {/* Section Header */}
+                <div className="text-center mb-16">
+                    <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
+                        What Our{" "}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
+                            Clients Say
+                        </span>
+                    </h2>
+                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                        Inspiring transformation stories from Indians living
+                        abroad who trusted us with their fitness journey.
+                    </p>
+                </div>
+
+                {/* Main Testimonial Card */}
+                <div className="max-w-5xl mx-auto">
+                    <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-lg p-10 border border-gray-200">
+                        <div className="grid lg:grid-cols-2 gap-10 items-center">
+                            {/* Images */}
+                            <div
+                                className={`testimonial-content ${
+                                    isTransitioning ? "fade-out" : "fade-in"
+                                }`}
+                            >
+                                <div className="grid grid-cols-2 gap-6">
+                                    <div className="relative">
+                                        <Image
+                                            src={currentClient?.beforeImage}
+                                            alt="Before"
+                                            className="w-64 h-64 object-cover rounded-2xl shadow-md"
+                                        />
+                                        <div className="absolute bottom-3 left-3 bg-black/70 text-white px-3 py-1 rounded-md text-xs font-semibold">
+                                            Before
+                                        </div>
+                                    </div>
+                                    <div className="relative">
+                                        <Image
+                                            src={currentClient?.afterImage}
+                                            alt="After"
+                                            className="w-64 h-64 object-cover rounded-2xl shadow-md"
+                                        />
+                                        <div className="absolute bottom-3 left-3 bg-green-600 text-white px-3 py-1 rounded-md text-xs font-semibold">
+                                            After
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Content */}
+                            <div
+                                className={`testimonial-content ${
+                                    isTransitioning ? "fade-out" : "fade-in"
+                                }`}
+                            >
+                                {/* Header */}
+                                <div className="flex items-center mb-4">
+                                    <div>
+                                        <h3 className="text-2xl font-bold text-gray-800">
+                                            {currentClient?.name}
+                                        </h3>
+                                        <p className="text-gray-500 text-sm">
+                                            {currentClient?.location}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Tags */}
+                                <div className="flex items-center space-x-3 mb-6">
+                                    <span className="bg-gradient-to-r from-primary to-accent text-white text-sm px-4 py-2 rounded-full font-medium shadow-sm">
+                                        {currentClient?.program}
+                                    </span>
+                                    <span className="bg-green-100 text-green-700 text-sm px-4 py-2 rounded-full font-medium">
+                                        {currentClient?.result}
+                                    </span>
+                                </div>
+
+                                {/* Rating */}
+                                <div className="flex items-center mb-5">
+                                    {[...Array(currentClient?.rating)]?.map(
+                                        (_, i) => (
+                                            <Icon
+                                                key={i}
+                                                name="Star"
+                                                size={22}
+                                                color="#fbbf24"
+                                                className="fill-current"
+                                            />
+                                        )
+                                    )}
+                                </div>
+
+                                {/* Testimonial */}
+                                <blockquote className="text-lg text-gray-700 leading-relaxed italic border-l-4 border-primary pl-4">
+                                    "{currentClient?.testimonial}"
+                                </blockquote>
+                            </div>
+                        </div>
+
+                        {/* Navigation */}
+                        <div className="flex items-center justify-between mt-10">
+                            <button
+                                onClick={prevTestimonial}
+                                className="w-12 h-12 bg-white border border-gray-300 rounded-full flex items-center justify-center hover:border-primary hover:text-primary shadow-sm transition"
+                            >
+                                <Icon name="ChevronLeft" size={20} />
+                            </button>
+
+                            <div className="flex space-x-2">
+                                {testimonials.map((_, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() =>
+                                            handleTestimonialChange(index)
+                                        }
+                                        className={`w-3 h-3 rounded-full transition ${
+                                            index === currentTestimonial
+                                                ? "bg-primary scale-110"
+                                                : "bg-gray-300 hover:bg-gray-400"
+                                        }`}
+                                    />
+                                ))}
+                            </div>
+
+                            <button
+                                onClick={nextTestimonial}
+                                className="w-12 h-12 bg-white border border-gray-300 rounded-full flex items-center justify-center hover:border-primary hover:text-primary shadow-sm transition"
+                            >
+                                <Icon name="ChevronRight" size={20} />
+                            </button>
+                        </div>
                     </div>
-                  </div>
-                  <div className="relative">
-                    <Image
-                      src={currentClient?.afterImage}
-                      alt="After transformation"
-                      className="w-full h-64 object-cover rounded-2xl transform transition-all duration-500 ease-in-out"
-                    />
-                    <div className="absolute bottom-4 left-4 bg-success text-white px-3 py-1 rounded-lg text-sm font-medium">
-                      After
-                    </div>
-                  </div>
                 </div>
-
-                {/* Video Testimonial Preview */}
-                <div className="mt-4 relative">
-                  <div className="aspect-video rounded-xl overflow-hidden">
-                    <Image
-                      src={currentClient?.videoThumbnail}
-                      alt="Video testimonial"
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-                      <button className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors duration-200 group">
-                        <Icon name="Play" size={24} color="#EF7F1B" className="ml-1 group-hover:scale-110 transition-transform duration-200" />
-                      </button>
-                    </div>
-                  </div>
-                  <div className="absolute top-4 right-4 bg-primary text-white px-2 py-1 rounded text-xs">
-                    Video Testimonial
-                  </div>
-                </div>
-              </div>
-
-              {/* Testimonial Content */}
-              <div className={`testimonial-content ${isTransitioning ? 'fade-out' : 'fade-in'}`}>
-                <div className="mb-4">
-                  <h3 className="text-2xl font-bold text-text-primary mb-1">{currentClient?.name}</h3>
-                  <p className="text-text-secondary">{currentClient?.location}</p>
-                </div>
-
-                <div className="flex items-center space-x-4 mb-6">
-                  <div className="bg-gradient-to-r from-primary to-accent text-white px-4 py-2 rounded-xl">
-                    <span className="font-semibold">{currentClient?.program}</span>
-                  </div>
-                  <div className="bg-success/10 text-success px-4 py-2 rounded-xl">
-                    <span className="font-semibold">{currentClient?.result}</span>
-                  </div>
-                </div>
-
-                {/* Rating */}
-                <div className="flex items-center space-x-1 mb-6">
-                  {[...Array(currentClient?.rating)]?.map((_, i) => (
-                    <Icon key={i} name="Star" size={20} color="#EF7F1B" className="fill-current" />
-                  ))}
-                </div>
-
-                <blockquote className="text-lg text-text-secondary leading-relaxed mb-6 italic transform transition-all duration-500 ease-in-out">
-                  "{currentClient?.testimonial}"
-                </blockquote>
-
-                {/* WhatsApp Message Preview */}
-                <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-                  <div className="flex items-center space-x-2 mb-2">
-                    <Icon name="MessageCircle" size={16} color="#22C55E" />
-                    <span className="text-sm font-medium text-green-700">Recent WhatsApp Message</span>
-                  </div>
-                  <p className="text-sm text-green-600 italic">
-                    "Thank you so much! I never thought I could achieve this while living abroad. The cultural understanding and support made all the difference! 🙏"
-                  </p>
-                </div>
-              </div>
             </div>
-
-            {/* Navigation */}
-            <div className="flex items-center justify-between mt-8">
-              <button
-                onClick={prevTestimonial}
-                className="w-12 h-12 bg-white border border-border rounded-full flex items-center justify-center hover:border-primary hover:text-primary transition-colors duration-200"
-              >
-                <Icon name="ChevronLeft" size={20} />
-              </button>
-
-              <div className="flex space-x-2">
-                {testimonials?.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleTestimonialChange(index)}
-                    className={`w-3 h-3 rounded-full transition-colors duration-200 ${index === currentTestimonial ? 'bg-primary' : 'bg-border'}`}
-                  />
-                ))}
-              </div>
-
-              <button
-                onClick={nextTestimonial}
-                className="w-12 h-12 bg-white border border-border rounded-full flex items-center justify-center hover:border-primary hover:text-primary transition-colors duration-200"
-              >
-                <Icon name="ChevronRight" size={20} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default TestimonialsSection;

@@ -9,10 +9,9 @@ const StickyNavigation = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const navigationItems = [
-    { label: 'Home', target: '#hero', id: 'home' },
+    { label: 'Home', target: '#home', id: 'home' },
     { label: 'Programs', target: '#programs', id: 'programs' },
     { label: 'Success Stories', target: '#testimonials', id: 'testimonials' },
-    { label: 'Pricing', target: '#pricing', id: 'pricing' }
   ];
 
   useEffect(() => {
@@ -104,7 +103,7 @@ const StickyNavigation = () => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-1000 transition-all duration-300 ${
+      <nav  className={`fixed top-0 left-0 right-0 z-1000 transition-all duration-300 ${
         isScrolled ? 'bg-white/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'
       }`}>
         {/* Scroll Progress Bar */}
@@ -156,7 +155,7 @@ const StickyNavigation = () => {
                 onClick={handleBookDemo}
                 className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary shadow-cta transform hover:-translate-y-0.5 transition-all duration-200"
               >
-                Book Free Demo
+                Book Your Transformation
               </Button>
             </div>
 
@@ -231,7 +230,7 @@ const StickyNavigation = () => {
                   onClick={handleBookDemo}
                   className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary shadow-cta"
                 >
-                  Book Free Demo
+                  Book Your Transformation
                 </Button>
               </div>
             </div>
