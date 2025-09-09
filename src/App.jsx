@@ -1,9 +1,10 @@
 import React from "react";
 import Routes from "./Routes";
 import { Toaster } from 'react-hot-toast';
+import WhatsAppButton from "./components/ui/WhatsAppButton";
 
 function App() {
-const toastTheme = {
+  const toastTheme = {
   duration: 3000,
   style: {
     background: '#fff',
@@ -49,6 +50,7 @@ const toastTheme = {
   return (
     <>
       <Routes />
+      <WhatsAppButton />
       <Toaster position="bottom-right" toastOptions={toastTheme} />
     </>
   );

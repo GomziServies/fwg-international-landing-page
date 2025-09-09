@@ -241,7 +241,7 @@ const HeroSection = () => {
                                 className="text-lg px-8 py-4"
                                 
                             >
-                                Book Your Trasform Now
+                                Book Your Transformation Now
                             </Button></a>
                         </motion.div>
                     </motion.div>

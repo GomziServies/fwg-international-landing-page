@@ -65,8 +65,7 @@ const TestimonialsSection = () => {
 
     const prevTestimonial = () => {
         handleTestimonialChange(
-            (currentTestimonial - 1 + testimonials.length) %
-                testimonials.length
+            (currentTestimonial - 1 + testimonials.length) % testimonials.length
         );
     };
 
@@ -93,7 +92,7 @@ const TestimonialsSection = () => {
 
             <div className="container mx-auto px-6">
                 {/* Section Header */}
-                <div className="text-center mb-16">
+                <div className="text-center mb-10">
                     <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
                         What Our{" "}
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
@@ -103,6 +102,10 @@ const TestimonialsSection = () => {
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
                         Inspiring transformation stories from Indians living
                         abroad who trusted us with their fitness journey.
+                    </p>
+
+                    <p className="mt-4 text-xl font-semibold text-primary">
+                        Hear Their Transformation Stories Live from them Only!
                     </p>
                 </div>
 

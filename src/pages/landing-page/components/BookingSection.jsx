@@ -563,7 +563,7 @@ const BookingSection = ({ onBookDemo }) => {
                                         Bank Name
                                     </label>
                                     <p className="text-lg font-semibold text-text-primary">
-                                        HDFC Bank
+                                        Axis bank 
                                     </p>
                                 </div>
 
@@ -572,7 +572,7 @@ const BookingSection = ({ onBookDemo }) => {
                                         Account Name
                                     </label>
                                     <p className="text-lg font-semibold text-text-primary">
-                                        FWG International
+                                        Gomzi Consulting Services and Private LTD
                                     </p>
                                 </div>
 
@@ -582,12 +582,12 @@ const BookingSection = ({ onBookDemo }) => {
                                     </label>
                                     <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-border">
                                         <p className="font-mono text-lg font-semibold text-text-primary">
-                                            50100123456789
+                                            923020001798197
                                         </p>
                                         <button
                                             onClick={() => {
                                                 navigator.clipboard.writeText(
-                                                    "50100123456789"
+                                                    "923020001798197"
                                                 );
                                                 toast.success(
                                                     "Account number copied!"
@@ -606,12 +606,12 @@ const BookingSection = ({ onBookDemo }) => {
                                     </label>
                                     <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-border">
                                         <p className="font-mono text-lg font-semibold text-text-primary">
-                                            HDFC0001234
+                                            UTIB0000566
                                         </p>
                                         <button
                                             onClick={() => {
                                                 navigator.clipboard.writeText(
-                                                    "HDFC0001234"
+                                                    "UTIB0000566"
                                                 );
                                                 toast.success(
                                                     "IFSC code copied!"
@@ -633,27 +633,31 @@ const BookingSection = ({ onBookDemo }) => {
                                         className="text-success flex-shrink-0 mt-1"
                                     />
                                     <div className="space-y-2">
-  <p className="text-sm font-medium text-text-primary">
-    Next Steps:
-  </p>
-  <ol className="text-sm text-text-secondary space-y-1 list-decimal ml-4">
-    <li>
-      Transfer the exact amount shown above
-    </li>
-    <li>
-      Take a screenshot of the successful transfer
-    </li>
-    <li>
-      Click the WhatsApp button below to send the screenshot to 
-      <span className="font-semibold text-text-primary ml-1">
-        +91 98765 43210
-      </span>
-    </li>
-    <li>
-      Receive confirmation within 24 hours
-    </li>
-  </ol>
-</div>
+                                        <p className="text-sm font-medium text-text-primary">
+                                            Next Steps:
+                                        </p>
+                                        <ol className="text-sm text-text-secondary space-y-1 list-decimal ml-4">
+                                            <li>
+                                                Transfer the exact amount shown
+                                                above
+                                            </li>
+                                            <li>
+                                                Take a screenshot of the
+                                                successful transfer
+                                            </li>
+                                            <li>
+                                                Click the WhatsApp button below
+                                                to send the screenshot to
+                                                <span className="font-semibold text-text-primary ml-1">
+                                                    +91 74820 77091
+                                                </span>
+                                            </li>
+                                            <li>
+                                                Receive confirmation within 24
+                                                hours
+                                            </li>
+                                        </ol>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -669,7 +673,7 @@ const BookingSection = ({ onBookDemo }) => {
                                     "Hello FWG International, I have completed the bank transfer. I am attaching the payment screenshot."
                                 );
 
-                                const whatsappUrl = `https://wa.me/919876897649?text=${message}`;
+                                const whatsappUrl = `https://wa.me/7482077091?text=${message}`;
 
                                 // ✅ Open in new tab
                                 window.open(whatsappUrl, "_blank");
