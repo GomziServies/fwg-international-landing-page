@@ -6,7 +6,7 @@ const Footer = () => {
 
   const socialLinks = [
     { name: "Facebook", icon: "Facebook", href: "https://www.facebook.com/gajani2/" },
-    { name: "Instagram", icon: "Instagram", href: "https://www.instagram.com/gomzi_nutrition/?igsh=NTc4MTIwNjQ2YQ%3D%3D#" },
+    { name: "Instagram", icon: "Instagram", href: "https://www.instagram.com/fitnesswithgomzi/" },
     { name: "YouTube", icon: "Youtube", href: "https://www.youtube.com/channel/UCLyvtq55YZORdV-SN8OQSzQ" },
     { name: "LinkedIn", icon: "Linkedin", href: "https://www.linkedin.com/in/dt-gautam-jani-561a50161/" },
   ];
@@ -15,7 +15,7 @@ const Footer = () => {
     email: "fitnesswithgomzi@gmail.com",
     whatsapp: "+91 74820 77091",
     address:
-      "Abhushan Bungalows, 2, Char Rasta, near Alkapuri, Shraddha Society, Katargam, Surat, Gujarat 395008",
+      "2, Abhushan Bunglows, Near Alkapuri Char Rasta, Katargam, Surat-395004",
   };
 
   return (
