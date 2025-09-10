@@ -353,7 +353,7 @@ const BookingSection = ({ onBookDemo }) => {
                         <Input
                             type="email"
                             label="Email Address"
-                            placeholder="your.email@example.com"
+                            placeholder="Enter your email"
                             value={formData?.email}
                             onChange={(e) =>
                                 handleInputChange("email", e?.target?.value)
@@ -394,7 +394,7 @@ const BookingSection = ({ onBookDemo }) => {
                         <Input
                             type="tel"
                             label="WhatsApp Number"
-                            placeholder="+1 (555) 123-4567"
+                            placeholder="Enter your WhatsApp number"
                             description="We'll send you a confirmation via WhatsApp"
                             value={formData?.phone}
                             onChange={(e) =>
@@ -623,6 +623,31 @@ const BookingSection = ({ onBookDemo }) => {
                                         </button>
                                     </div>
                                 </div>
+
+                                <div>
+                                    <label className="text-sm font-medium text-text-secondary block mb-1">
+                                        SWIFT Code
+                                    </label>
+                                    <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-border">
+                                        <p className="font-mono text-lg font-semibold text-text-primary">
+                                            AXISINBB566
+                                        </p>
+                                        <button
+                                            onClick={ () => {
+                                                navigator.clipboard.writeText(
+                                                    "AXISINBB566"
+                                                );
+                                                toast.success(
+                                                    "SWIFT code copied!"
+                                                );
+                                            } }
+                                            className="text-primary hover:text-primary/80 p-2 hover:bg-primary/5 rounded-lg transition-colors"
+                                        >
+                                            <Icon name="Copy" size={ 20 } />
+                                        </button>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div className="bg-success/5 rounded-xl p-4 border border-success/20 mt-6">
