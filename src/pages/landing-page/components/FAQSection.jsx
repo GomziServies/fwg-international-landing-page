@@ -32,7 +32,7 @@ const FAQSection = () => {
     {
       question: "How much does it cost?",
       answer:
-        "Plans start at just $XX/month. Book your free consultation to get a personalized quote.",
+        "Plans start at around $25/month. Book your free consultation to get a personalized quote.",
     },
   ];
 
