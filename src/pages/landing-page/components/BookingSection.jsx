@@ -9,15 +9,15 @@ import axios from "axios";
 
 const BookingSection = ({ onBookDemo }) => {
     const [formStep, setFormStep] = useState(1);
-    const [isPaymentSuccess, setIsPaymentSuccess] = useState(() => {
-        const savedPaymentStatus = localStorage.getItem("demoPaymentSuccess");
-        return savedPaymentStatus === "true";
+    const [isBookingSuccess, setIsBookingSuccess] = useState(() => {
+        const savedBookingStatus = localStorage.getItem("demoBookingSuccess");
+        return savedBookingStatus === "true";
     });
 
     useEffect(() => {
-        const savedPaymentStatus = localStorage.getItem("demoPaymentSuccess");
-        if (savedPaymentStatus === "true") {
-            setIsPaymentSuccess(true);
+        const savedBookingStatus = localStorage.getItem("demoBookingSuccess");
+        if (savedBookingStatus === "true") {
+            setIsBookingSuccess(true);
         }
     }, []);
 
@@ -68,21 +68,21 @@ const BookingSection = ({ onBookDemo }) => {
     ];
 
     useEffect(() => {
-        // Check payment status on mount
-        const checkPaymentStatus = () => {
-            const savedPaymentStatus =
-                localStorage.getItem("demoPaymentSuccess");
-            const savedPaymentDetails =
-                localStorage.getItem("demoPaymentDetails");
+        // Check booking status on mount
+        const checkBookingStatus = () => {
+            const savedBookingStatus =
+                localStorage.getItem("demoBookingSuccess");
+            const savedBookingDetails =
+                localStorage.getItem("demoBookingDetails");
 
-            if (savedPaymentStatus === "true" && savedPaymentDetails) {
-                setIsPaymentSuccess(true);
+            if (savedBookingStatus === "true" && savedBookingDetails) {
+                setIsBookingSuccess(true);
                 // Optionally show a welcome back message
                 toast.success("Welcome back! Your booking is confirmed.");
             }
         };
 
-        checkPaymentStatus();
+        checkBookingStatus();
 
         // Simulate timezone detection
         const timezone = Intl.DateTimeFormat()?.resolvedOptions()?.timeZone;
@@ -134,155 +134,38 @@ const BookingSection = ({ onBookDemo }) => {
         setFormData((prev) => ({ ...prev, [field]: value }));
     };
 
-    const initializeRazorpay = () => {
-        return new Promise((resolve) => {
-            const script = document.createElement("script");
-            script.src = "https://checkout.razorpay.com/v1/checkout.js";
-            script.onload = () => {
-                resolve(true);
-            };
-            script.onerror = () => {
-                resolve(false);
-            };
-            document.body.appendChild(script);
-        });
-    };
-
-    const handlePayment = async () => {
+    const handleBooking = async () => {
         try {
-            localStorage.setItem("demoPaymentSuccess", false);
-            const res = await initializeRazorpay();
+            // Show initial success toast
+            toast.success("Booking confirmed! Our team will contact you soon on WhatsApp.");
 
-            if (!res) {
-                toast.error("Razorpay SDK failed to load");
-                return;
-            }
+            // Set state immediately to show Thank You page
+            setIsBookingSuccess(true);
 
-            const getPriceForCountry = () => {
-                // All prices equivalent to 35000 INR
-                const currencyWiseAmount = {
-                    INR: { amount: 35000, symbol: "₹", currency: "INR" }, // ₹35000 INR
-                    USD: { amount: 420, symbol: "$", currency: "USD" }, // $420 USD
-                    CAD: { amount: 565, symbol: "$", currency: "CAD" }, // $565 CAD
-                    AED: { amount: 1550, symbol: "د.إ", currency: "AED" }, // 1550 AED
-                    SGD: { amount: 570, symbol: "S$", currency: "SGD" }, // $570 SGD
-                    EUR: { amount: 390, symbol: "€", currency: "EUR" }, // €390 EUR
-                };
-                // Use selected currency or default to USD
-                const selectedCurrency = formData.country || "USD";
-                return currencyWiseAmount[selectedCurrency];
-            };
+            // Save state
+            localStorage.setItem("demoBookingSuccess", "true");
+            localStorage.setItem(
+                "demoBookingDetails",
+                JSON.stringify({
+                    bookingId: "direct_booking_" + Date.now(),
+                    timestamp: new Date().toISOString(),
+                    formData: formData,
+                })
+            );
 
-            const priceDetails = getPriceForCountry();
-
-            const options = {
-                key: apiConfig.RAZORPAY_MERCHANT_ID,
-                amount: priceDetails.amount * 100, // Amount in smallest currency unit
-                currency: priceDetails.currency,
-                name: "FWG International",
-                description: "International Client Package",
-                handler: async function (response) {
-                    try {
-                        // Show initial success toast and save state immediately
-                        toast.success(
-                            "Payment received! Confirming your booking..."
-                        );
-
-                        // Immediately save payment success and details
-                        localStorage.setItem("demoPaymentSuccess", "true");
-                        localStorage.setItem(
-                            "demoPaymentDetails",
-                            JSON.stringify({
-                                paymentId: response.razorpay_payment_id,
-                                currency: priceDetails.currency,
-                                amount: priceDetails.amount,
-                                timestamp: new Date().toISOString(),
-                                formData: formData, // Store form data for persistence
-                            })
-                        );
-
-                        // Set state immediately
-                        setIsPaymentSuccess(true);
-
-                        // Create an instance of axios with base URL
-                        const { data } = await axios.post(
-                            `${apiConfig.BASE_URL}/public/v1/guest-payment/international-client`,
-                            {
-                                payment_id: response.razorpay_payment_id,
-                                currency: priceDetails.currency,
-                            }
-                        );
-
-                        if (data.success) {
-                            // Update state and localStorage
-                            setIsPaymentSuccess(true);
-                            localStorage.setItem("demoPaymentSuccess", "true");
-
-                            localStorage.setItem(
-                                "demoPaymentDetails",
-                                JSON.stringify({
-                                    paymentId: response.razorpay_payment_id,
-                                    currency: priceDetails.currency,
-                                    amount: priceDetails.amount,
-                                    timestamp: new Date().toISOString(),
-                                })
-                            );
-
-                            // Show final success toast after a short delay
-                            setTimeout(() => {
-                                toast.success(
-                                    "Booking confirmed! Our team will contact you soon on WhatsApp."
-                                );
-                            }, 1000);
-
-                            // Call the callback
-                            onBookDemo &&
-                                onBookDemo({
-                                    ...formData,
-                                    paymentId: response.razorpay_payment_id,
-                                    currency: priceDetails.currency,
-                                    amount: priceDetails.amount,
-                                });
-                        }
-                    } catch (error) {
-                        console.error("Payment verification error:", {
-                            status: error.response?.status,
-                            message: error.response?.data?.message,
-                            error: error,
-                        });
-                        toast.error(
-                            error.response?.data?.message ||
-                                `Payment verification failed: ${error.response?.status}. Please contact support.`
-                        );
-                    }
-                },
-                prefill: {
-                    name: formData.name,
-                    email: formData.email,
-                    contact: formData.phone,
-                },
-                notes: {
-                    name: formData.name,
-                    source: window.location.origin + window.location.pathname,
-                    page_url: window.location.href,
-                },
-                theme: {
-                    color: "#FF5A1F",
-                },
-            };
-
-            const paymentObject = new window.Razorpay(options);
-            paymentObject.on("payment.failed", function (response) {
-                toast.error("Payment failed. Please try again.");
-            });
-            paymentObject.open();
+            // Call the callback
+            onBookDemo &&
+                onBookDemo({
+                    ...formData,
+                    bookingId: "direct_booking",
+                });
         } catch (error) {
-            toast.error("Something went wrong with the payment initialization");
-            console.error("Payment error:", error);
+            toast.error("Something went wrong");
+            console.error("Booking error:", error);
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e?.preventDefault();
 
         if (formStep === 1) {
@@ -327,12 +210,46 @@ const BookingSection = ({ onBookDemo }) => {
         }
 
         if (formStep < 4) {
-            setFormStep(formStep + 1);
-            toast.success("Great! Let's continue to the next step");
-        } else if (formStep === 4) {
-            e?.preventDefault();
-            setFormStep(6); // Step 6 will be payment options
-            toast.success("Great! Please select your payment method");
+            if (formStep === 3) {
+                try {
+                    const goalLabel = goals.find(g => g.value === formData?.goal)?.label || formData?.goal || "N/A";
+                    const expLabel = experiences.find(e => e.value === formData?.experience)?.label || formData?.experience || "N/A";
+                    const message = `Goal: ${goalLabel}, Experience: ${expLabel}, Time: ${formData?.availability || "N/A"}, Country: ${formData?.country || "N/A"}`;
+                    
+                    await axios.post(`${apiConfig.BASE_URL}/public/v1/contact-inquiry`, {
+                        name: formData.name,
+                        email: formData.email,
+                        mobile: formData.phone,
+                        subject: "FWG International Lead",
+                        source: window.location.href,
+                        message: message
+                    });
+                } catch (error) {
+                    console.error("Failed to submit inquiry to admin panel", error);
+                    toast.error("Failed to submit details. Please try again.");
+                    return;
+                }
+
+                toast.success("Booking confirmed! Our team will contact you soon via email.");
+                setIsBookingSuccess(true);
+                localStorage.setItem("demoBookingSuccess", "true");
+                localStorage.setItem(
+                    "demoBookingDetails",
+                    JSON.stringify({
+                        bookingId: "direct_booking_" + Date.now(),
+                        timestamp: new Date().toISOString(),
+                        formData: formData,
+                    })
+                );
+                onBookDemo &&
+                    onBookDemo({
+                        ...formData,
+                        bookingId: "direct_booking",
+                    });
+            } else {
+                setFormStep(formStep + 1);
+                toast.success("Great! Let's continue to the next step");
+            }
         }
     };
 
@@ -395,19 +312,19 @@ const BookingSection = ({ onBookDemo }) => {
                             type="tel"
                             label="WhatsApp Number"
                             placeholder="Enter your WhatsApp number"
-                            description="We'll send you a confirmation via WhatsApp"
+                            description="We'll send you a confirmation via email"
                             value={formData?.phone}
                             onChange={(e) =>
                                 handleInputChange("phone", e?.target?.value)
                             }
                         />
-                        <Select
+                        <Input
+                            type="text"
                             label="Current Country"
-                            placeholder="Select your country"
-                            options={countries}
+                            placeholder="Enter your country"
                             value={formData?.country}
-                            onChange={(value) =>
-                                handleInputChange("country", value)
+                            onChange={(e) =>
+                                handleInputChange("country", e?.target?.value)
                             }
                         />
                     </div>
@@ -464,10 +381,15 @@ const BookingSection = ({ onBookDemo }) => {
                         SGD: { amount: 570, symbol: "S$", currency: "SGD" },
                         EUR: { amount: 390, symbol: "€", currency: "EUR" },
                     };
-                    return (
-                        currencyWiseAmount[formData.country] ||
-                        currencyWiseAmount.other
-                    );
+
+                    const countryStr = (formData.country || "").toUpperCase();
+                    if (countryStr.includes("INDIA") || countryStr === "INR") return currencyWiseAmount.INR;
+                    if (countryStr.includes("CANADA") || countryStr === "CAD") return currencyWiseAmount.CAD;
+                    if (countryStr.includes("UAE") || countryStr.includes("DUBAI") || countryStr === "AED") return currencyWiseAmount.AED;
+                    if (countryStr.includes("SINGAPORE") || countryStr === "SGD") return currencyWiseAmount.SGD;
+                    if (countryStr.includes("EUROPE") || countryStr === "EUR") return currencyWiseAmount.EUR;
+
+                    return currencyWiseAmount.USD; // Default fallback
                 };
 
                 const priceDetails = getPriceForCountry();
@@ -534,7 +456,7 @@ const BookingSection = ({ onBookDemo }) => {
                                         className="text-primary"
                                     />
                                     <span className="text-xs text-text-secondary">
-                                        One-time payment for complete
+                                        One-time booking for complete
                                         consultation package
                                     </span>
                                 </div>
@@ -563,7 +485,7 @@ const BookingSection = ({ onBookDemo }) => {
                                         Bank Name
                                     </label>
                                     <p className="text-lg font-semibold text-text-primary">
-                                        Axis bank 
+                                        Axis bank
                                     </p>
                                 </div>
 
@@ -633,17 +555,17 @@ const BookingSection = ({ onBookDemo }) => {
                                             AXISINBB566
                                         </p>
                                         <button
-                                            onClick={ () => {
+                                            onClick={() => {
                                                 navigator.clipboard.writeText(
                                                     "AXISINBB566"
                                                 );
                                                 toast.success(
                                                     "SWIFT code copied!"
                                                 );
-                                            } }
+                                            }}
                                             className="text-primary hover:text-primary/80 p-2 hover:bg-primary/5 rounded-lg transition-colors"
                                         >
-                                            <Icon name="Copy" size={ 20 } />
+                                            <Icon name="Copy" size={20} />
                                         </button>
                                     </div>
                                 </div>
@@ -695,7 +617,7 @@ const BookingSection = ({ onBookDemo }) => {
                             className="bg-[#25D366] hover:bg-[#128C7E] text-white shadow-cta mt-4"
                             onClick={() => {
                                 const message = encodeURIComponent(
-                                    "Hello FWG International, I have completed the bank transfer. I am attaching the payment screenshot."
+                                    "Hello FWG International, I have completed the bank transfer. I am attaching the booking screenshot."
                                 );
 
                                 const whatsappUrl = `https://wa.me/7482077091?text=${message}`;
@@ -738,17 +660,17 @@ const BookingSection = ({ onBookDemo }) => {
                             }}
                         >
                             <Icon name="ArrowLeft" size={20} className="mr-2" />
-                            Back to Payment Options
+                            Back to Booking Options
                         </Button>
                     </div>
                 );
 
-            case 6: // Payment Options
+            case 6: // Booking Options
                 return (
                     <div className="space-y-6">
                         <div className="text-center mb-8">
                             <h3 className="text-2xl font-bold text-text-primary mb-2">
-                                Select Payment Method
+                                Select Booking Method
                             </h3>
                             <p className="text-text-secondary">
                                 Choose your preferred way to pay
@@ -761,7 +683,7 @@ const BookingSection = ({ onBookDemo }) => {
                                 variant="default"
                                 size="lg"
                                 fullWidth
-                                onClick={handlePayment}
+                                onClick={handleBooking}
                                 className="bg-gradient-to-r from-primary to-accent hover:from-accent hover:to-primary shadow-cta p-6"
                             >
                                 <div className="flex items-center justify-between w-full">
@@ -824,7 +746,7 @@ const BookingSection = ({ onBookDemo }) => {
                                     className="text-primary"
                                 />
                                 <span className="text-sm">
-                                    All payment methods are secure and encrypted
+                                    All booking methods are secure and encrypted
                                 </span>
                             </div>
                         </div>
@@ -968,9 +890,8 @@ const BookingSection = ({ onBookDemo }) => {
                         {/* Booking Form */}
                         <div className="bg-white rounded-3xl shadow-testimonial p-8 border border-border">
                             {/* Progress Indicator or Success Message */}
-                            {isPaymentSuccess ? (
+                            {isBookingSuccess ? (
                                 <div className="mb-8">
-                                    {/* Success Animation */}
                                     <div className="flex flex-col items-center justify-center mb-6">
                                         <div className="relative">
                                             <div className="w-20 h-20 bg-success/10 rounded-full flex items-center justify-center mb-4 animate-pulse">
@@ -981,75 +902,14 @@ const BookingSection = ({ onBookDemo }) => {
                                                 />
                                             </div>
                                         </div>
-                                        <h3 className="text-2xl font-bold text-success mb-2">
-                                            Payment Successful!
+                                        <h3 className="text-3xl font-bold text-success mb-2 text-center">
+                                            Thank You!
                                         </h3>
                                         <div className="text-center space-y-2">
                                             <p className="text-text-secondary">
                                                 Your booking has been confirmed
-                                                successfully.
+                                                successfully. We will contact you soon.
                                             </p>
-                                            <p className="text-sm text-success font-medium">
-                                                Our team will contact you on
-                                                WhatsApp within 24 hours
-                                            </p>
-                                        </div>
-                                    </div>
-                                    {/* Success Steps */}
-                                    <div className="space-y-4 bg-success/5 rounded-xl p-4 border border-success/20">
-                                        <div className="flex items-center space-x-3">
-                                            <div className="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center">
-                                                <Icon
-                                                    name="WhatsApp"
-                                                    size={16}
-                                                    className="text-success"
-                                                />
-                                            </div>
-                                            <div>
-                                                <p className="text-sm font-medium text-text-primary">
-                                                    WhatsApp Contact
-                                                </p>
-                                                <p className="text-xs text-text-secondary">
-                                                    Expect our message within 24
-                                                    hours
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center space-x-3">
-                                            <div className="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center">
-                                                <Icon
-                                                    name="Calendar"
-                                                    size={16}
-                                                    className="text-success"
-                                                />
-                                            </div>
-                                            <div>
-                                                <p className="text-sm font-medium text-text-primary">
-                                                    Schedule Confirmation
-                                                </p>
-                                                <p className="text-xs text-text-secondary">
-                                                    We'll arrange your preferred
-                                                    time slot
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center space-x-3">
-                                            <div className="w-8 h-8 bg-success/10 rounded-full flex items-center justify-center">
-                                                <Icon
-                                                    name="FileText"
-                                                    size={16}
-                                                    className="text-success"
-                                                />
-                                            </div>
-                                            <div>
-                                                <p className="text-sm font-medium text-text-primary">
-                                                    Preparation Guide
-                                                </p>
-                                                <p className="text-xs text-text-secondary">
-                                                    You'll receive session
-                                                    details soon
-                                                </p>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1061,13 +921,12 @@ const BookingSection = ({ onBookDemo }) => {
                                             className="flex items-center"
                                         >
                                             <div
-                                                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                                                    step < formStep
-                                                        ? "bg-primary text-white"
-                                                        : step === formStep
+                                                className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${step < formStep
+                                                    ? "bg-primary text-white"
+                                                    : step === formStep
                                                         ? "bg-primary text-white"
                                                         : "bg-gray-200 text-gray-500"
-                                                }`}
+                                                    }`}
                                             >
                                                 {step < formStep ? (
                                                     <Icon
@@ -1077,7 +936,7 @@ const BookingSection = ({ onBookDemo }) => {
                                                 ) : step === formStep ? (
                                                     step
                                                 ) : formStep >= 5 &&
-                                                  step === 4 ? (
+                                                    step === 4 ? (
                                                     <Icon
                                                         name="Check"
                                                         size={16}
@@ -1088,11 +947,10 @@ const BookingSection = ({ onBookDemo }) => {
                                             </div>
                                             {step < 4 && (
                                                 <div
-                                                    className={`w-8 h-1 mx-2 ${
-                                                        step < formStep
-                                                            ? "bg-primary"
-                                                            : "bg-gray-200"
-                                                    }`}
+                                                    className={`w-8 h-1 mx-2 ${step < formStep
+                                                        ? "bg-primary"
+                                                        : "bg-gray-200"
+                                                        }`}
                                                 />
                                             )}
                                         </div>
@@ -1100,48 +958,36 @@ const BookingSection = ({ onBookDemo }) => {
                                 </div>
                             )}
 
-                            {isPaymentSuccess ? (
+                            {isBookingSuccess ? (
                                 <div className="space-y-6">
                                     <div className="bg-success/5 rounded-xl p-6 border border-success/20">
-                                        <div className="space-y-4">
-                                            <div className="flex items-start space-x-3">
-                                                <div className="w-6 h-6 bg-success/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <Icon
-                                                        name="WhatsApp"
-                                                        size={14}
-                                                        className="text-success"
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <h4 className="font-semibold text-text-primary mb-1">
-                                                        WhatsApp Support
-                                                    </h4>
-                                                    <p className="text-sm text-text-secondary">
-                                                        Our team will contact
-                                                        you on WhatsApp within
-                                                        24 hours
-                                                    </p>
-                                                </div>
+                                        <h4 className="font-semibold text-text-primary mb-4 border-b border-success/20 pb-2">Information</h4>
+                                        <div className="space-y-3 text-sm">
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-text-secondary">Name</span>
+                                                <span className="font-medium text-text-primary">{formData?.name || "N/A"}</span>
                                             </div>
-                                            <div className="flex items-start space-x-3">
-                                                <div className="w-6 h-6 bg-success/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                                                    <Icon
-                                                        name="Calendar"
-                                                        size={14}
-                                                        className="text-success"
-                                                    />
-                                                </div>
-                                                <div>
-                                                    <h4 className="font-semibold text-text-primary mb-1">
-                                                        Session Details
-                                                    </h4>
-                                                    <p className="text-sm text-text-secondary">
-                                                        You'll receive your
-                                                        session details and
-                                                        preparation guide soon
-                                                    </p>
-                                                </div>
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-text-secondary">Email</span>
+                                                <span className="font-medium text-text-primary">{formData?.email || "N/A"}</span>
                                             </div>
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-text-secondary">WhatsApp</span>
+                                                <span className="font-medium text-text-primary">{formData?.phone || "N/A"}</span>
+                                            </div>
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-text-secondary">Goal</span>
+                                                <span className="font-medium text-text-primary">{goals.find(g => g.value === formData?.goal)?.label || formData?.goal || "N/A"}</span>
+                                            </div>
+                                            <div className="flex justify-between items-center">
+                                                <span className="text-text-secondary">Experience</span>
+                                                <span className="font-medium text-text-primary">{experiences.find(e => e.value === formData?.experience)?.label || formData?.experience || "N/A"}</span>
+                                            </div>
+                                        </div>
+                                        <div className="mt-6 pt-4 border-t border-success/20 text-center">
+                                            <p className="text-sm text-text-secondary">
+                                                We will provide further details through email.
+                                            </p>
                                         </div>
                                     </div>
                                     <Button
@@ -1150,12 +996,12 @@ const BookingSection = ({ onBookDemo }) => {
                                         fullWidth
                                         onClick={() => {
                                             localStorage.removeItem(
-                                                "demoPaymentSuccess"
+                                                "demoBookingSuccess"
                                             );
                                             localStorage.removeItem(
-                                                "demoPaymentDetails"
+                                                "demoBookingDetails"
                                             );
-                                            setIsPaymentSuccess(false);
+                                            setIsBookingSuccess(false);
                                             setFormStep(1);
                                             setFormData({
                                                 email: "",

@@ -3,8 +3,8 @@ let baseUrl = "http://localhost:80";
 let razorpayMerchantId = "rzp_test_F0TUZmabOwKkhe";
 
 if (
-    hostname === "purego.gomzilifesciences.in" ||
-    hostname === "www.purego.gomzilifesciences.in"
+    hostname === "fitnesswithgomzi.com" ||
+    hostname === "www.fitnesswithgomzi.com"
 ) {
     baseUrl = "https://api.fggroup.in";
     razorpayMerchantId = "rzp_live_tdfTCMm8C9gJNN";
